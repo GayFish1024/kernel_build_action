@@ -18,11 +18,12 @@ jobs:
           config: floral_defconfig
           arch: arm64
           aosp-gcc: true
+          # 关键：手动指定 GCC 分支，避开不存在的 android14 分支
+          other-gcc64-branch: master
+          other-gcc32-branch: master
           aosp-clang: true
           android-version: 14
-          # 换成这个版本，下载成功率最高
           aosp-clang-version: r487747c 
-          # 依然保持这个标志，防止汇编报错
           extra-make-args: LLVM_IAS=0
           ksu: true
           ksu-version: v0.9.5
