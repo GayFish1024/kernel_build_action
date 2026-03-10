@@ -20,10 +20,10 @@ jobs:
           aosp-gcc: true
           aosp-clang: true
           android-version: 14
-          aosp-clang-version: r450784d
-          # 核心修复标志，解决 vgettimeofday 报错
+          # 换成这个版本，下载成功率最高
+          aosp-clang-version: r487747c 
+          # 依然保持这个标志，防止汇编报错
           extra-make-args: LLVM_IAS=0
           ksu: true
           ksu-version: v0.9.5
-          # 开启 AnyKernel3 方便最后打包
           anykernel3: true
