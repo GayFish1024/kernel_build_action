@@ -1,45 +1,29 @@
-name: CI
+name: Pixel4XL_KSU_Build
 on:
-  push:
-    branches: main
-    paths:
-      - '.github/workflows/main.yml'
-      - 'action.yml'
-      - 'src/*.ts'
-      - 'package.json'
-
-  pull_request:
-  workflow_dispatch:
+  workflow_dispatch: # 开启手动触发
 
 jobs:
-  ci-test:
-    name: Build Kernel
-    strategy:
-      fail-fast: false
+  build:
+    name: Build Kernel for Pixel 4 XL
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-      with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Build Kernel
-      uses: ./
-      with:
-          kernel-url: https://github.com/AcmeUI-Devices/android_kernel_xiaomi_cas
-          kernel-dir: msm-4.19
-          kernel-branch: taffy
-          config: cas_defconfig
+      - name: Build Kernel
+        uses: ./
+        with:
+          kernel-url: https://github.com/LineageOS/android_kernel_google_msm-4.14
+          kernel-branch: lineage-21
+          config: floral_defconfig
           arch: arm64
           aosp-gcc: true
           aosp-clang: true
+          android-version: 14
+          aosp-clang-version: r450784d
+          # 核心修复标志，解决 vgettimeofday 报错
+          extra-make-args: LLVM_IAS=0
           ksu: true
-          ksu-version: main
-          android-version: 12
-          aosp-clang-version: r383902
-          disable-lto: true
+          ksu-version: v0.9.5
+          # 开启 AnyKernel3 方便最后打包
           anykernel3: true
