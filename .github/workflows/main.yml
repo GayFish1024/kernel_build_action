@@ -26,5 +26,6 @@ jobs:
           aosp-clang-version: r487747c 
           extra-make-args: LLVM_IAS=0
           ksu: true
-          ksu-version: v0.9.5
+          ksu-url: https://github.com/sukisu-ultra/sukisu-ultra
+          ksu-version: main
           anykernel3: true
